@@ -1,8 +1,8 @@
 provider "azurerm" {
   # whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
   version = "=1.28.0"
-  subscription_id  = "b4e1aa53-c521-44e6-8a4d-5ae107916b5b"
-  tenant_id        = "593ce202-d1a9-4760-ba26-ae35417c00cb" 
+  subscription_id  = "7cb0887d-b3aa-4e06-8325-01671ec376e1"
+  tenant_id        = "2a9c1e0b-3f10-4b58-90f2-3c7a66a102d2" 
   client_id = "${var.client_id}"
   client_secret = "${var.client_secret}"
 }
@@ -18,7 +18,7 @@ resource "azurerm_resource_group" "resource_group" {
 module "kubernetes" {
   source = "../modules/kubernetes/azure"
   environment = "${var.environment}"
-  name = "egov-micro-dev"
+  name = "ey-uat"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${azurerm_resource_group.resource_group.name}"
   client_id = "${var.client_id}"
@@ -45,7 +45,7 @@ module "kafka" {
   disk_prefix = "kafka"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${module.kubernetes.node_resource_group}"
-  storage_sku = "Standard_LRS"
+  storage_sku = "Premium_LRS"
   disk_size_gb = "50"
   
 }
@@ -74,17 +74,17 @@ module "es-data-v1" {
 
 module "postgres-db" {
   source = "../modules/db/azure"
-  server_name = "egov-micro-dev"
+  server_name = "ey-uat"
   resource_group = "${module.kubernetes.node_resource_group}"  
   sku_cores = "2"
   location = "${azurerm_resource_group.resource_group.location}"
   sku_tier = "Basic"
   storage_mb = "51200"
   backup_retention_days = "7"
-  administrator_login = "egovdev"
+  administrator_login = "eyuat"
   administrator_login_password = "${var.db_password}"
   ssl_enforce = "Disabled"
-  db_name = "egov_dev_ms"
+  db_name = "ey_uat_admin"
   environment= "${var.environment}"
   
 }

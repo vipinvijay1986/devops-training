@@ -1,12 +1,12 @@
 variable "environment" {
-    default = "egov-micro-dev"
+    default = "ey-uat"
 }
 variable "resource_group" {
-    default = "egov-micro-dev"
+    default = "ey-uat"
 }
 
 variable "location" {
-    default = "SouthIndia"
+    default = "SouthEastAsia"
 }
 
 variable "db_password" {
