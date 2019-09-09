@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "pb-micro-uat-terraform-state"
+    bucket = "bel-uat-terraform-state"
     key = "terraform"
     region = "ap-south-1"
   }
@@ -23,7 +23,7 @@ module "db" {
   storage_type                  = "gp2"
   storage_gb                    = "100"
   backup_retention_days         = "7"
-  administrator_login           = "egovuat"
+  administrator_login           = "beluat"
   administrator_login_password  = "${var.db_password}"
   db_name                       = "${var.cluster_name}-db"
   environment                   = "${var.cluster_name}"
@@ -72,27 +72,6 @@ module "es-data-v1" {
   
 }
 
-module "es-master-infra" {
-
-  source = "../modules/storage/aws"
-  environment = "${var.cluster_name}"
-  disk_prefix = "es-master-infra"
-  availability_zones = "${var.availability_zones}"
-  storage_sku = "gp2"
-  disk_size_gb = "2"
-  
-}
-module "es-data-infra-v1" {
-
-  source = "../modules/storage/aws"
-  environment = "${var.cluster_name}"
-  disk_prefix = "es-data-infra-v1"
-  availability_zones = "${var.availability_zones}"
-  storage_sku = "gp2"
-  disk_size_gb = "50"
-  
-}
-
 module "zookeeper" {
 
   source = "../modules/storage/aws"
@@ -112,16 +91,5 @@ module "kafka" {
   availability_zones = "${var.availability_zones}"
   storage_sku = "gp2"
   disk_size_gb = "50"
-  
-}
-
-module "kafka-infra" {
-
-  source = "../modules/storage/aws"
-  environment = "${var.cluster_name}"
-  disk_prefix = "kafka-infra"
-  availability_zones = "${var.availability_zones}"
-  storage_sku = "st1"
-  disk_size_gb = "500"
   
 }

@@ -3,7 +3,7 @@
 #
 
 variable "cluster_name" {
-  default = "pb-micro-uat"
+  default = "bel-uat"
 }
 
 variable "vpc_cidr_block" {
@@ -23,12 +23,11 @@ variable "instance_type" {
 }
 
 variable "number_of_worker_nodes" {
-  default = "4"
+  default = "3"
 }
 
 variable "ssh_key_name" {
-  default = "egov-micro-pb-ssh"
+  default = "bel-ssh"
 }
 
 variable "db_password" {}
-
