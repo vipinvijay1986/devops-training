@@ -421,7 +421,7 @@ egf-master:
   images:
     - egovio/egf-master
   db_migration_image: egovio/egf-master-db
-  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
+  db-url: "jdbc:postgresql://bel-uat-db.cgj6zer18zzc.ap-south-1.rds.amazonaws.com:5432/bel_uat_db"
   memory_limits: 512Mi
   heap: "-Xmx256m -Xms256m -XX:TieredStopAtLevel=1"
 
@@ -472,9 +472,9 @@ zookeeper-config:
 
 egov-config:
   sms-enabled: "true"
-  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
-  db-host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
-  db-name: "egov_uat_db"
+  db-url: "jdbc:postgresql://bel-uat-db.cgj6zer18zzc.ap-south-1.rds.amazonaws.com:5432/bel_uat_db"
+  db-host: "bel-uat-db.cgj6zer18zzc.ap-south-1.rds.amazonaws.com"
+  db-name: "bel_uat_db"
   kafka-brokers: "kafka-v2-headless.kafka-cluster:9092"
   spring-datasource-tomcat-initialSize: "1"
   spring-datasource-tomcat-max-active: "5"
@@ -668,10 +668,10 @@ redis:
 
 # secrets >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 db-secret:
-  username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
-  password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
-  flyway-username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
-  flyway-password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
+  username: tdvGltsvM5H9L92PNvLkGg==
+  password: UHGOvvpI8JXJqVqxa/tcIuND1WE9vC/Z+1ZGBuLyaf0=
+  flyway-username: tdvGltsvM5H9L92PNvLkGg==
+  flyway-password: UHGOvvpI8JXJqVqxa/tcIuND1WE9vC/Z+1ZGBuLyaf0=
 
 egov-notification-sms-secret:
   username: gm6cCy6UBivuzGDwmNvsQJ+V8GG6+Ot1eRv67bSg2Qw=
@@ -690,12 +690,12 @@ pgadmin:
     - egovio/pgadmin:v0.1
 
 pgadmin-config:
-  host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
+  host: "bel-uat-db.cgj6zer18zzc.ap-south-1.rds.amazonaws.com"
   db-admin-username: "egovuat"
   db-read-username: "pbuat_readonly"
   port: "5432"
   env: "PBUAT"
-  maintenance-db-name: "egov_uat_db"
+  maintenance-db-name: "bel_uat_db"
   admin-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnZxLM503WCC3VuLN6YlKRbn1VcHGXxblruwkv8iUziC5VSPFLgDEgjn+1vscsbE4MA=="
   admin-password: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D506guUFl8C9VnEoAA042DjH4iwJxlhHLAbEmr4KvdjI9w=="
   read-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPndZ80NH1wrDwg6o51XnjbZjkydapMxytFn+3lkiOjq2dD9kb4xhcEgseyNPT2/zSJg=="
