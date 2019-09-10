@@ -1,0 +1,905 @@
+# billingservices >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+billing-service:
+  replicas: 2
+  images:
+    - egovio/billing-service
+  db_migration_image: egovio/billing-service-db
+  memory_limits: 512Mi
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# core >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+egov-accesscontrol:
+  replicas: 2
+  images:
+    - egovio/egov-accesscontrol
+  db_migration_image: egovio/egov-accesscontrol-db
+  java-args: "-Dspring.profiles.active=production"
+
+egov-common-masters:
+  replicas: 2
+  images:
+    - egovio/egov-common-masters
+  db_migration_image: egovio/egov-common-masters-db
+
+egov-filestore:
+  replicas: 1
+  images:
+    - egovio/egov-filestore
+  db_migration_image: egovio/egov-filestore-db
+  volume: /opt/eGov/filestore
+  is-bucket-fixed: "true"
+  is-s3-enabled: "true"
+  fixed-bucketname: egov-filestore-uat # Only got UAT
+  aws:
+    aws-key: ""
+    aws-secret-key: ""
+
+egov-localization:
+  replicas: 2
+  images:
+    - egovio/egov-localization
+  db_migration_image: egovio/egov-localization-db
+
+egov-location:
+  replicas: 2
+  images:
+    - egovio/egov-location
+  db_migration_image: egovio/egov-location-db
+  memory_limits: 512Mi
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  gmaps:
+    api-key: ""
+    
+
+egov-notification-sms:
+  replicas: 1
+  images:
+    - egovio/egov-notification-sms
+  db_migration_image: egovio/egov-notification-sms-db
+  sms-provider-url: "https://msdgweb.mgov.gov.in/esms/sendsmsrequest"
+  sms-sender: "PBGOVT"
+  sms-sender-requesttype: "POST"
+  sms-custom-config: "true"
+  sms-extra-req-params: "smsservicetype=unicodemsg"
+
+egov-otp:
+  replicas: 2
+  images:
+    - egovio/egov-otp
+  db_migration_image: egovio/egov-otp-db
+
+egov-user:
+  replicas: 2
+  images:
+    - egovio/egov-user
+  db_migration_image: egovio/egov-user-db
+  heap: "-Xmx256m -Xms256m -XX:TieredStopAtLevel=1"
+  memory_limits: 1Gi
+  otp-validation: "true"
+  citizen-otp-enabled: "true"
+  employee-otp-enabled: "false"
+  access-token-validity: 10080
+  refresh-token-validity: 20160
+  default-password-expiry: 90
+  mobile-number-validation: "false"
+  roles-state-level: "true"
+  citizen-registration-withlogin: "true"
+  citizen-otp-fixed: "123456"
+  citizen-otp-fixed-enabled: "true"
+  java-args: "-Dspring.profiles.active=production"
+  egov-state-level-tenant-id: "pb"
+  decryption-abac-enabled: "false"
+  tracing-enabled: "true"
+
+tenant:
+  replicas: 2
+  images:
+    - egovio/tenant
+  db_migration_image: egovio/tenant-db
+
+egov-idgen:
+  replicas: 2
+  images:
+    - egovio/egov-idgen
+  db_migration_image: egovio/egov-idgen-db
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  idformat-from-mdms: "true"
+
+egov-mdms-service:
+  replicas: 2
+  images:
+    - egovio/egov-mdms-service
+  mdms-path: "/opt/mdms/data"
+  mdms-git-url: "https://codeload.github.com/egovernments/punjab-mdms-data/zip/"
+  mdms-folder: "punjab-mdms-data"
+  branch: "UAT"
+  masters-config-url: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-mdms-service/mdms-masters-config.json"
+  java-args: "-Dspring.profiles.active=production"
+
+egov-indexer:
+  replicas: 1
+  images:
+    - egovio/egov-indexer
+  heap: "-Xmx512m -Xms512m -XX:TieredStopAtLevel=1"
+  memory_limits: "768Mi"
+
+egov-workflow-v2:
+  replicas: 1
+  images:
+    - egovio/egov-workflow-v2
+  heap: "-Xmx512m -Xms512m -XX:TieredStopAtLevel=1"
+  db_migration_image: egovio/egov-workflow-v2-db
+  java-args: "-Dspring.profiles.active=production"
+
+egov-persister:
+  replicas: 2
+  images:
+    - egovio/egov-persister
+  persist-yml-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pg-service-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pgr-v3-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/property-services-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-calculator-v2-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-drafts-persister.yml,https://github.com/egovernments/punjab-rainmaker-customization/raw/UAT/configs/egov-persister/tradelicense-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/indexer-job-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-calculation-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-billing-slab-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/uploader-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/hrms-employee-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/apportion-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-user-event-persister.yml"
+  java-args: "-Dspring.profiles.active=production"  
+
+egov-searcher:
+  replicas: 1
+  images:
+    - egovio/egov-searcher
+  search-yaml-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pgr-v2-searcher.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-customsearch-punjab.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-gissearch.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/weekly-impact-emailer-searcher.yml"
+  java-args: "-Dspring.profiles.active=production"
+
+
+egov-data-uploader:
+  replicas: 1
+  images:
+    - egovio/egov-data-uploader
+  heap: "-Xmx512m -Xms512m -XX:TieredStopAtLevel=1"
+  upload-assessment: "YES"
+  upload-json-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/property-upload.json,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/localization-upload.json,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/CollectionReceiptWorkflow.json"
+  template-download-prefix: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/upload-templates"
+  internal-file-folder-path: "/tmp"
+  java-args: "-Dspring.profiles.active=production"
+
+egov-pg-service:
+  replicas: 1
+  images:
+    - egovio/egov-pg-service
+  db_migration_image: egovio/egov-pg-service-db
+  payu-url: "test.payu.in"
+  payu-url-status: "test.payu.in"
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  java-args: "-Dspring.profiles.active=production"
+
+telemetry:
+  replicas: 1
+  images:
+    - egovio/telemetry
+
+egov-telemetry-kafka-streams:
+  replicas: 1
+  images:
+    - egovio/egov-telemetry-kafka-streams
+
+egov-telemetry-batch-process:
+  replicas: 1
+  images:
+    - egovio/egov-telemetry-batch-process
+  date: ""
+
+egov-custom-consumer:
+  replicas: 1
+  images:
+    - egovio/egov-custom-consumer
+  erp-host: "https://mohali-uat.egovernments.org/"
+
+egov-index-custom-consumer:
+  replicas: 2
+  images:
+    - egovio/egov-index-custom-consumer
+
+egov-weekly-impact-notifier:
+  mail-to-address: "vishal.mahuli@egovernments.org"
+  mail-interval-in-secs: "604800"
+  images:
+    - egovio/egov-weekly-impact-notifier
+
+egov-apportion-service:
+  replicas: 1
+  images:
+    - egovio/egov-apportion-service
+  db_migration_image: egovio/egov-apportion-service-db
+  memory_limits: 512Mi
+  heap: -Xmx256m -Xms256m    
+  java-args: "-Dspring.profiles.active=production"  
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# demand >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+demand-services:
+  replicas: 2
+  images:
+    - egovio/demand-services
+  db_migration_image: egovio/demand-services-db
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# financials >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# docs >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+redoc:
+  replicas: 2
+  images:
+    - egovio/redoc:v1.0.5
+  service_type: LoadBalancer
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# gateway >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+nginx:
+  replicas: 1
+  images:
+    - egovio/nginx
+    - janeczku/go-dnsmasq:release-1.0.5
+  service_type: LoadBalancer
+  kibana-credentials: 'admin:$apr1$6RkMKGr3$iVjYhX0Rc4M10rDYsGJ.w.\npmidc:$apr1$YrMK90jj$pYn2k8RBxQ./pCLKz8EAs0'
+  SUBFILTER: "YES"
+  TELEMETRY_JS_URL: "https://s3.ap-south-1.amazonaws.com/egov-telemetry-data/egov-telemetry-1557467338.js"
+  ULB_JS_URL: "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/ulb-overrides-uat-20190909.js"
+  asset-bucket-url: "https://s3.ap-south-1.amazonaws.com"
+  jaeger-credentials: "jaegeradmin:$apr1$1tuSu0/m$v0WKCmLDUvugAaYwK16eI."
+
+zuul:
+  replicas: 2
+  images:
+    - egovio/zuul
+  custom-filter-property: "true"
+  prehook-config: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-zuul/pre-hook.json"
+  posthook-config: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-zuul/post-hook.json"
+  heap: "-Xmx704m -Xms512m -XX:TieredStopAtLevel=1"
+  server-tomcat-max-threads: "350"
+  server-tomcat-max-connections: "1500"
+  java-args: "-Dspring.profiles.active=production"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# user >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+user-otp:
+  replicas: 2
+  images:
+    - egovio/user-otp
+  db_migration_image: egovio/user-otp-db
+  java-args: "-Dspring.profiles.active=production"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# web >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+react-pgr-web:
+  replicas: 1
+  images:
+    - egovio/react-pgr-web
+  db_migration_image: egovio/react-pgr-web-db
+
+employee:
+  replicas: 1
+  images:
+    - egovio/employee
+  dashboard-url: "https://dashboard-pbuat.egovernments.org/s/w---s/app/kibana#/dashboard/4e687470-f3c7-11e8-8d09-b151e2b1cf8e?embed=true&_g=(refreshInterval%3A(pause%3A!f%2Cvalue%3A300000)%2Ctime%3A(from%3Anow-15m%2Cmode%3Aquick%2Cto%3Anow))"
+
+citizen:
+  replicas: 1
+  images:
+    - egovio/citizen
+
+employee-tradelicence:
+  replicas: 1
+  images:
+    - egovio/employee-tradelicence
+  SUBFILTER: "YES"
+  TL_ULB_JS_URL: "https://s3.ap-south-1.amazonaws.com/pb-egov-assets/tl-uat-ulb-override.js"
+
+ui-uploader:
+  replicas: 1
+  images:
+    - egovio/ui-uploader
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# reportinfra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+report:
+  replicas: 1
+  images:
+    - egovio/report
+  report-locationsfile-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/reports/report.config"
+  tracing-enabled: "true"
+  java-args: "-Dspring.profiles.active=production"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# rainmaker-pgr >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+rainmaker-pgr:
+  replicas: 2
+  images:
+    - egovio/rainmaker-pgr
+  db_migration_image: egovio/rainmaker-pgr-db
+  notification-sms-enabled: "true"
+  notification-email-enabled: "false"
+  new-complaint-enabled: "true"
+  reassign-complaint-enabled: "true"
+  reopen-complaint-enabled: "true"
+  comment-by-employee-notif-enabled: "false"
+  notification-allowed-status: "open,assigned,rejected,resolved"
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+
+
+pt-services-v2:
+  replicas: 2
+  images:
+    - egovio/pt-services-v2
+  db_migration_image: egovio/pt-services-v2-db
+  heap: "-Xmx384m -Xms384m -XX:TieredStopAtLevel=1"
+  memory_limits: "512Mi"
+  notification-sms-enabled: "false"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+
+
+pt-calculator-v2:
+  replicas: 2
+  images:
+    - egovio/pt-calculator-v2
+  db_migration_image: egovio/pt-calculator-v2-db
+  logging-level: "DEBUG"
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  JAVA_ENABLE_DEBUG: "true"
+  CUSTOM_PB_ZERO_ASSESSMENT: true
+  CUSTOM_PB_ZERO_ASSESSMENTYEAR: "2014-15"
+  CUSTOM_PB_ZERO_ASSESSMENT_TENANTID: "pb.testing.zero"
+  unbuiltarea-prorated: "true"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+
+
+tl-services:
+  replicas: 1
+  images:
+    - egovio/tl-services
+  db_migration_image: egovio/tl-services-db
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  memory_limits: 384Mi
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+  tl-license-num-format: "PB-TL-[cy:yyyy-MM-dd]-[SEQ_EG_PT_LN]"
+  tl-application-num-format: "PB-TL-[cy:yyyy-MM-dd]-[SEQ_EG_TL_APL]"  
+
+
+tl-calculator:
+  replicas: 1
+  images:
+    - egovio/tl-calculator
+  db_migration_image: egovio/tl-calculator-db
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Collections >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+collection-services:
+  replicas: 1
+  images:
+    - egovio/collection-services
+  db_migration_image: egovio/collection-services-db
+  receiptnumber-servicebased: "true"
+  search-ignore-status: "Cancelled,Rejected"
+  java-args: "-Dspring.profiles.active=production"
+  tracing-enabled: "true"
+
+
+collection-receipt-voucher-consumer:
+  replicas: 1
+  images:
+    - egovio/collection-receipt-voucher-consumer
+  jalandhar-erp-host: "https://jalandhar-uat.egovernments.org/"
+  mohali-erp-host: "https://mohali-uat.egovernments.org/"
+  nayagaon-erp-host: "https://nayagaon-uat.egovernments.org/"
+  amritsar-erp-host: "https://amritsar-uat.egovernments.org/"
+  kharar-erp-host: "https://kharar-uat.egovernments.org/"
+  zirakpur-erp-host: "https://zirakpur-uat.egovernments.org/"
+
+finance-collections-voucher-consumer:
+  replicas: 1
+  images:
+    - egovio/finance-collections-voucher-consumer
+  db_migration_image: egovio/finance-collections-voucher-consumer-db
+  erp-env-name: "uat"
+  erp-domain-name: "egovernments.org"
+
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# financials >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+egf-master:
+  replicas: 2
+  images:
+    - egovio/egf-master
+  db_migration_image: egovio/egf-master-db
+  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
+  memory_limits: 512Mi
+  heap: "-Xmx256m -Xms256m -XX:TieredStopAtLevel=1"
+
+egf-instrument:
+  replicas: 2
+  images:
+    - egovio/egf-instrument
+  db_migration_image: egovio/egf-instrument-db
+
+egov-hrms:
+  replicas: 2
+  images:
+    - egovio/egov-hrms
+  db_migration_image: egovio/egov-hrms
+  java-args: "-Dspring.profiles.active=production"
+  heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
+  employee-applink: "https://mseva-uat.lgpunjab.gov.in/employee/user/login"
+  tracing-enabled: "true"
+
+firenoc-services:
+  replicas: 1
+  images:
+    - egovio/firenoc-services
+  db_migration_image: egovio/firenoc-services
+
+firenoc-calculator:
+  replicas: 1
+  images:
+    - egovio/firenoc-calculator
+  db_migration_image: egovio/firenoc-calculator   
+
+egov-user-event:
+  replicas: 1
+  images:
+    - egovio/egov-user-event
+  db_migration_image: egovio/egov-user-event-db     
+
+
+hrms-web:
+  replicas: 1
+  images:
+    - egovio/hrms-web
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# configMaps >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+zookeeper-config:
+  data: "tickTime=2000\n    initLimit=10\n    syncLimit=5\n    dataDir=/opt/zookeeper/data\n    clientPort=2181\n    autopurge.snapRetainCount=3\n    autopurge.purgeInterval=1\n    server.1=zookeeper-0.zookeeper:2888:3888"
+
+egov-config:
+  sms-enabled: "true"
+  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
+  db-host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
+  db-name: "egov_uat_db"
+  kafka-brokers: "kafka-v2-headless.kafka-cluster:9092"
+  spring-datasource-tomcat-initialSize: "1"
+  spring-datasource-tomcat-max-active: "5"
+  server-tomcat-max-threads: "10"
+  server-tomcat-max-connections: "500"
+  es-indexer-host: "http://elasticsearch-client-v1.es-cluster:9200/"
+  es-host: "elasticsearch-client-v1.es-cluster"
+  egov-services-fqdn-name: "https://mseva-uat.lgpunjab.gov.in/"
+  flyway-locations: "filesystem:/flyway/sql,filesystem:/flyway/seed,filesystem:/flyway/qa"
+  spring-jpa-show-sql: "true"
+  serializers-timezone-in-ist: "true"
+  mobile-validation-workaround: "true"
+  egov-indexer-yaml-repo-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-telemetry-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pgr-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pt-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/billingservices-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/tradelicense-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/collection-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-uploader-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/finance-rolloutadoption-indexer.yml"
+  logging-level-jdbc: "null"
+  domain: "mseva-uat.lgpunjab.gov.in"
+  tracer-errors-provideexceptionindetails: "true"
+
+kafka-config:
+  topics: "egov.pgr.validated:1:3,egov.pgr.locationupdated:1:3,egov.pgr.workflowupdated:1:3,egov.pgr.saved:1:3,egov.pgr.indexing:1:3,egov.core.notification.email:1:3,egov.core.notification.sms:1:3,attendance-save-db:1:3,egov.employee:1:3,save-asset-db:1:3,update-asset-db:1:3,save-assetcategory-db:1:3,agreement-save-db:1:3,agreement-update-db:1:3,lams-workflow-start:1:3,lams-workflow-update:1:3,egov-common-holiday:1:3,egov.leaveopeningbalance-create:1:3,egov.leaveopeningbalance-update:1:3,egov-hr-leavetype:1:3,egov.leaveallotment-create:1:3,egov.leaveallotment-update:1:3,egov.designation-create:1:3,egov.designation-update:1:3,egov.position-create:1:3,egov.position-update:1:3,property-create-validated:1:3,property-create-tax-calculated:1:3,property-create-user-validated:1:3,property-create-workflow-started:1:3,property-create-workflow-updated:1:3,save-bill-db:1:3,update-bill-db:1:3,save-bill:1:3,update-bill:1:3,save-demand:1:3,update-demand:1:3,egov.collection.receipt-create:1:3,save-taxHeadMaster-db:1:3,update-taxHeadMaster:1:3,save-glCodeMaster-db:1:3,save-glCodeMaster:1:3,update-glCodeMaster-db:1:3,update-glCodeMaster:1:3,save-taxperiod-db:1:3,save-taxperiod:1:3,update-taxperiod-db:1:3,update-taxperiod:1:3,save-businessservicedetail-db:1:3,save-businessservicedetail:1:3,update-businessservicedetail-db:1:3,update-businessservicedetail:1:3,create-legacy-tradelicense-validated:1:3,egov.pgr.servicedefinition-create:1:3,demand-bill-update:1:3,egov.pgr.servicedefinition-update:1:3,egov-common-department-create:1:3,egov-common-department-update:1:3,egov.services.tl-services.create.legacy.tradelicense.validated:1:3,save-service-db:1:3,update-service-db:1:3,save-pt-property:1:3,update-pt-property:1:3,save-pt-billingslab:1:3,update-pt-billingslab:1:3,save-pg-txns:1:3,update-pg-txns:1:3,save-pg-txns-dump:1:3,update-pg-txns-dump:1:3,save-pt-drafts:1:3,update-pt-drafts:1:3,egov.collectionmasters.bankaccountservicemapping-create:1:3,bankaccountservicemapping-create:1:3,update-pt-property-index:1:3"
+  zookeeper-connect: "zookeeper-v2-headless.zookeeper-cluster:2181"
+  kafka-brokers: "kafka-v2-headless.kafka-cluster:9092"
+  kafka-infra-brokers: "kafka-v2-infra-headless.kafka-cluster:9092"
+  zookeeper-ensemble: "zookeeper-v2-headless.zookeeper-cluster:2181"
+
+zuul-config:
+  egov-open-endpoints-whitelist: "/user/oauth/token,/user-otp/v1/_send,/otp/v1/_validate,/user/citizen/_create,/localization/messages,/localization/messages/v1/_search,/user/password/nologin/_update,/pgr/servicedefinition/v1/_search,/pgr/servicecategories/v1/_search,/pgr/v1/otp/_send,/pgr-master/receivingmode/v1/_search,/tenant/v1/tenant/_search,/egov-location/boundarys,/egov-location/boundarys/boundariesByBndryTypeNameAndHierarchyTypeName,/pgr-master/service/v1/_search,/egov-location/boundarys/getLocationByLocationName,/pgr-master/OTPConfig/_search,/pgr-master/serviceGroup/v1/_search,/egov-location/boundarys/isshapefileexist,/pgr/services/v1/_search,/hr-masters/hrconfigurations/_search,/collection-services/receipts/_view,/pgr-master/service/v2/_search,/pgr-master/servicedefinition/v1/_search,/citizen-services,/citizen-services/v1/requests/receipt/_create,/citizen-services/v1/pgresponse,/citizen-services/v1/requests/anonymous/_search,/egov-mdms-service/v1/_search,/egov-mdms-service/v1/_get,/egov-mdms-service/v1/_reload,/egov-mdms-service/v1/_reloadobj,/egov-location/boundarys/getshapefile,/egov-indexer/index-operations/_index,/egov-indexer/index-operations/_reload,/egov-mdms-service-test/v1/_search,/egov-mdms-create/v1/_update,/egov-mdms-create/v1/_create,/egov-mdms-service-test/v1/_reload,/data-uploader/v1/jobs/_create,/data-uploader/v1/jobs/_search,/data-uploader/v1/upload-definitions/_search,/data-uploader/v1/upload-definitions/_test,/filestore/v1/files/url"
+  egov-mixed-mode-endpoints-whitelist: "/pgr/seva/v1/_create,/pgr/seva/v1/_search,/pgr/seva/v1/_count,/workflow/history/v1/_search,/filestore/v1/files/id,/filestore/v1/files,/filestore/v1/files/tag,/egov-common-masters/departments/_search,/pt-property/property/propertytypes/_search,/pt-property/properties/_search,/pt-property/property/usages/_search,/egov-idgen/id/_generate,/egf-masters/financialyears/_search,/egov-common-workflows/process/_start,/egov-common-workflows/process/_search,/egov-common-workflows/tasks,/egov-common-workflows/tasks/{id}/_update,/user/_search,/user/users/_createnovalidate,/user/users/{id}/_update,/billing-service/demand/_dues,/billing-service/bill/_generate,/billing-service/demand/_create,/wcms/masters/waterchargesconfig/_search,/wcms/masters/usagetypes/_search,/wcms/masters/pipesizes/_search,/wcms-connection/connection/_getbillingtypes,/wcms-connection/connection/_getconnectiontypes,/wcms/masters/sourcetypes/_search,/wcms/masters/supplytypes/_search,/wcms/masters/storagereservoirs/_search,/wcms/masters/treatmentplants/_search,/wcms/masters/documenttypes-applicationtypes/_search,/wcms/masters/donations/_search,/wcms/masters/nonmeterwaterrates/_search,/wcms-connection/connection/_create,/egov-common-masters/genders/_search,/egov-common-workflows/designations/_search,/access/v1/actions/mdms/_get"
+  eventlog-enabled: "true"
+  eventlog-urls-whitelist: "/pt-calculator-v2,/pt-services-v2,/tl-services,/tl-calculator,/rainmaker-pgr,/billing-service,/collection-services,/pg-service"
+
+logging-config:
+  es-host: "elasticsearch-client-infra-v1.es-cluster-infra"
+  es-port: "9200"
+
+jaeger-config:
+  host: ""
+  port: ""
+  sampler-type: ""
+  sampler-param: ""
+  sampling-strategies: |
+    {
+        "service_strategies": [
+          {
+            "service": "tl-services",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "tl-calculator",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "report-service",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "pt-services-v2",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "pt-calculator-v2",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "collection-services",
+            "type": "probabilistic",
+            "param": 0.2
+          },
+          {
+            "service": "billing-service",
+            "type": "probabilistic",
+            "param": 0.2
+          },
+          {
+            "service": "egov-data-uploader",
+            "type": "probabilistic",
+            "param": 0.2
+          },
+          {
+            "service": "egov-hrms",
+            "type": "probabilistic",
+            "param": 0.5
+          },
+          {
+            "service": "rainmaker-pgr",
+            "type": "probabilistic",
+            "param": 0.5
+          }
+        ],
+        "default_strategy": {
+          "type": "probabilistic",
+          "param": 0.05
+        }
+      }
+
+egov-service-host:
+  asset-services: "http://asset-services:8080/"
+  asset-services-maha: "http://asset-services-maha:8080/"
+  billing-service: "http://billing-service:8080/"
+  collection-services: "http://collection-services:8080/"
+  collection-masters: "http://collection-masters:8080/"
+  collection-search-indexer: "http://collection-search-indexer:8080/"
+  citizen-indexer: "http://citizen-indexer:8080/"
+  citizen-services: "http://citizen-services:8080/"
+  demand-services: "http://demand-services:8080/"
+  data-sync-employee: "http://data-sync-employee:8080/"
+  egov-common-masters: "http://egov-common-masters:8080/"
+  egf-masters: "http://egf-masters:8080/"
+  egf-master: "http://egf-master:8080/"
+  egf-instrument: "http://egf-instrument:8080/"
+  egf-voucher: "http://egf-voucher:8080/"
+  egf-bill: "http://egf-bill:8080/"
+  egf-voucher-workflow: "http://egf-voucher-workflow:8080/"
+  egov-accesscontrol: "http://egov-accesscontrol:8080/"
+  egov-user: "http://egov-user:8080/"
+  egov-user-egov: "http://egov-user.egov:8080/"
+  egov-location: "http://egov-location:8080/"
+  egov-filestore: "http://egov-filestore:8080/"
+  egov-localization: "http://egov-localization:8080/"
+  egov-idgen: "http://egov-idgen:8080/"
+  egov-otp: "http://egov-otp:8080/"
+  egov-common-workflows: "http://egov-common-workflows:8080/"
+  egov-mdms-service: "http://egov-mdms-service:8080/"
+  egov-mdms-service-test: "http://egov-mdms-service-test:8080/"
+  egov-mdms-create: "http://egov-mdms-create:8080/"
+  egov-eis: "http://egov-eis:8080/"
+  egov-workflow: "http://egov-workflow:8080/"
+  egov-workflow-v2: "http://egov-workflow-v2:8080/"
+  egov-searcher: "http://egov-searcher:8080/"
+  egov-data-uploader: "http://egov-data-uploader:8080/"
+  egov-indexer: "http://egov-indexer:8080/"
+  egov-hrms: "http://egov-hrms:8080/"
+  egov-apportion-service: "http://egov-apportion-service:8080/"  
+  es-client: "http://es-client:9200"
+  hr-masters: "http://hr-masters:8080/"
+  hr-employee: "http://hr-employee:8080/"
+  hr-masters-v2: "http://hr-masters-v2:8080/"
+  hr-employee-v2: "http://hr-employee-v2:8080/"
+  hr-attendance: "http://hr-attendance:8080/"
+  hr-leave: "http://hr-leave:8080/"
+  hr-employee-movement: "http://hr-employee-movement:8080/"
+  inventory-services: "http://inventory-services:8080/"
+  lams-services: "http://lams-services:8080/"
+  lcms-workflow: "http://lcms-workflow:8080/"
+  lcms-services: "http://lcms-services:8080/"
+  location: "http://location:8080/"
+  performance-assessment: "http://performance-assessment:8080/"
+  pt-property: "http://pt-property:8080/"
+  pt-workflow: "http://pt-workflow:8080/"
+  pt-tax-enrichment: "http://pt-tax-enrichment:8080/"
+  pt-calculator: "http://pt-calculator:8080/"
+  pt-calculator-v2: "http://pt-calculator-v2:8080/"
+  pt-services-v2: "http://pt-services-v2:8080/"
+  pgr-master: "http://pgr-master:8080/"
+  pgr-rest: "http://pgr-rest:8080/"
+  report: "http://report:8080/"
+  swm-services: "http://swm-services:8080/"
+  tenant: "http://tenant:8080/"
+  tl-masters: "http://tl-masters:8080/"
+  tl-services: "http://tl-services:8080/"
+  tl-workflow: "http://tl-workflow:8080/"
+  tl-indexer: "http://tl-indexer:8080/"
+  tl-calculator: "http://tl-calculator:8080/"
+  user-otp: "http://user-otp:8080/"
+  firenoc-services: "http://firenoc-services:8080/"
+  firenoc-calculator: "http://firenoc-calculator:8080/"  
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# kafka >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>REMOVED-TEMP
+# kafka:
+#   replicas: 2
+#   images:
+#     - egovio/kafka:0.10.1.1
+#   ebs-volumes:
+#     - vol-0a92d1f6b61903256
+#     - vol-020f5402065b4b1da
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# redis >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+redis:
+  replicas: 1
+  images:
+    - egovio/redis:3.2
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# secrets >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+db-secret:
+  username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
+  password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
+  flyway-username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
+  flyway-password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
+
+egov-notification-sms-secret:
+  username: gm6cCy6UBivuzGDwmNvsQJ+V8GG6+Ot1eRv67bSg2Qw=
+  password: aahQvRjI4SKN2hkBbQlsug==
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+playground:
+  replicas: 1
+  images:
+    - egovio/playground:v2
+
+pgadmin:
+  images:
+    - egovio/pgadmin:v0.1
+
+pgadmin-config:
+  host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
+  db-admin-username: "egovuat"
+  db-read-username: "pbuat_readonly"
+  port: "5432"
+  env: "PBUAT"
+  maintenance-db-name: "egov_uat_db"
+  admin-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnZxLM503WCC3VuLN6YlKRbn1VcHGXxblruwkv8iUziC5VSPFLgDEgjn+1vscsbE4MA=="
+  admin-password: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D506guUFl8C9VnEoAA042DjH4iwJxlhHLAbEmr4KvdjI9w=="
+  read-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPndZ80NH1wrDwg6o51XnjbZjkydapMxytFn+3lkiOjq2dD9kb4xhcEgseyNPT2/zSJg=="
+  read-password: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D52xulKiBdVQHjYXWEL51HQu9eg5q1yvwLAAeQYCN0uqHg=="
+
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+#timezone specific configuration >>>>>>>>
+time-config:
+  timezone: "Asia/Kolkata"
+#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+# kafka-v2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+kafka-v2:
+  replicas: 3
+  images:
+    - confluentinc/cp-kafka:5.2.2
+  # Use chroot to reuse single zookeeper ensemble
+  zookeeper-connect: "zookeeper-v2-headless.zookeeper-cluster:2181/kafka"
+  heap: "-Xms704M -Xmx704M -XX:TieredStopAtLevel=1"
+  offsets-topic-replication-factor: "3"
+  linger-ms: "250"
+  min-insync-replicas: "1"
+  default-replication-factor: "2"
+  num-partitions: "3"
+  storage-size: "50Gi"
+  ebs-volumes:
+    - vol-08682866d33389e9e
+    - vol-0291b0158bbd6615b
+    - vol-0f58e09ffc96d74dd
+  zones:
+    - ap-south-1a
+    - ap-south-1b  
+    - ap-south-1c
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# kafka-v2-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>REMOVED-TEMP
+# kafka-v2-infra:
+#   replicas: 3
+#   images:
+#     - confluentinc/cp-kafka:5.2.2
+#   # Use chroot to reuse single zookeeper ensemble
+#   zookeeper-connect: "zookeeper-v2-headless.zookeeper-cluster:2181/kafka-infra"
+#   heap: "-Xms704M -Xmx704M -XX:TieredStopAtLevel=1"
+#   offsets-topic-replication-factor: "3"
+#   linger-ms: "250"
+#   min-insync-replicas: "1"
+#   default-replication-factor: "2"
+#   num-partitions: "3"
+#   storage-size: "500Gi"
+#   ebs-volumes:
+#     - vol-0a909bcbf1289703e
+#     - vol-06cdba8cb7f185404
+#     - vol-0fe598b2552bdaa0c
+#   zones:
+#     - ap-south-1a
+#     - ap-south-1b  
+#     - ap-south-1c
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# zookeeper-v2 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+zookeeper-v2:
+  replicas: 3
+  storage-size: 5Gi   
+  images:
+    - confluentinc/cp-zookeeper:5.2.2
+  zookeeper-servers: "zookeeper-v2-0.zookeeper-v2-headless.zookeeper-cluster:2888:3888;zookeeper-v2-1.zookeeper-v2-headless.zookeeper-cluster:2888:3888;zookeeper-v2-2.zookeeper-v2-headless.zookeeper-cluster:2888:3888"
+  heap: "-Xms256M -Xmx256M"
+  ebs-volumes:
+    - vol-05c9fc63343943032
+    - vol-0ed28eb9c468cd38c
+    - vol-0ef25cffbde5f74ba
+  zones:
+    - ap-south-1a
+    - ap-south-1b
+    - ap-south-1c  
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# kafka-connect-infra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+kafka-connect-infra:
+  replicas: 1
+  images:
+    - egovio/cp-kafka-connect:5.2.2
+  heap: "-Xms512M -Xmx512M"
+  config-storage-replication-factor: "3"
+  offset-storage-replication-factor: "3"
+  status-storage-replication-factor: "3"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# fluent-bit >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+fluent-bit:
+  images:
+    - fluent/fluent-bit:1.0.6
+  egov-services-log-topic: "egov-services-logs"
+  egov-infra-log-topic: "egov-infra-logs"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# es-v1-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+es-data-v1:
+  replicas: 3
+  storage-size: 25Gi  
+  images:
+    - egovio/elasticsearch-v1:6.4.2
+  ebs-volumes:
+    - vol-0c14a097a2b2360d4
+    - vol-0383220c8f5511af7
+    - vol-0142fe0d623ee6f0d
+  zones:
+    - ap-south-1a
+    - ap-south-1b
+    - ap-south-1c      
+  network-host: "_eth0:ipv4_"
+
+es-client-v1:
+  replicas: 1
+  images:
+    - egovio/elasticsearch-v1:6.4.2
+  network-host: "_eth0:ipv4_"
+
+es-master-v1:
+  replicas: 3
+  images:
+    - egovio/elasticsearch-v1:6.4.2
+  storage-size: 2Gi  
+  ebs-volumes:
+    - vol-0e9cb1360d990e6ef
+    - vol-03a59eef2db3a50dc
+    - vol-0fc39db95d1dc4b9a
+  zones:
+    - ap-south-1a
+    - ap-south-1b
+    - ap-south-1c      
+  network-host: "_eth0:ipv4_"
+
+kibana-v1:
+  replicas: 1
+  images:
+    - docker.elastic.co/kibana/kibana:6.4.2
+  es-url: "http://elasticsearch-client-v1:9200"  
+  external_port: 5601
+  server-basepath: "/kibana"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# es-infra-v1-cluster >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# es-data-infra-v1:
+#   replicas: 3
+#   storage-size: 30Gi  
+#   images:
+#     - egovio/elasticsearch-v1:6.4.2
+#   ebs-volumes:
+#     - "vol-0919cb190c03a05ef"
+#     - "vol-09b51074f0b1657aa"
+#     - "vol-0070eb26e681a8bdc"
+#   zones:
+#     - ap-south-1a
+#     - ap-south-1b
+#     - ap-south-1c      
+#   network-host: "_eth0:ipv4_"
+
+# es-client-infra-v1:
+#   replicas: 1
+#   images:
+#     - egovio/elasticsearch-v1:6.4.2
+#   network-host: "_eth0:ipv4_"
+
+# es-master-infra-v1:
+#   replicas: 3
+#   images:
+#     - egovio/elasticsearch-v1:6.4.2
+#   storage-size: 2Gi  
+#   ebs-volumes:
+#     - "vol-0785ad1227e942714"
+#     - "vol-080dd06e88e2e7233"
+#     - "vol-043f4913bd037a9b0"
+#   zones:
+#     - ap-south-1a
+#     - ap-south-1b
+#     - ap-south-1c      
+#   network-host: "_eth0:ipv4_"
+
+# kibana-infra-v1:
+#   replicas: 1
+#   images:
+#     - docker.elastic.co/kibana/kibana:6.4.2
+#   es-url: "http://elasticsearch-client-infra-v1:9200"  
+#   external_port: 5601
+#   server-basepath: "/kibana-infra"
+
+# es-curator:
+#   schedule: "45 18 * * *"
+#   images:
+#     - bobrik/curator:5.6.0
+#   es-host: "elasticsearch-client-infra-v1.es-cluster-infra"  
+#   logs-cleanup-enabled: "true"
+#   jaeger-cleanup-enabled: "true"
+#   logs-to-retain: "7"  
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# TLS Certificates >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ssl-certs:
+  cert-pem: "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"
+  chain-pem: "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"
+  fullchain-pem: "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"
+  privkey-pem: "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"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
