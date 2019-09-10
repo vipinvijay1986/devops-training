@@ -33,7 +33,7 @@ module "zookeeper" {
   disk_prefix = "zookeeper"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${module.kubernetes.node_resource_group}"
-  storage_sku = "Premium_LRS"
+  storage_sku = "Standard_LRS"
   disk_size_gb = "5"
   
 }
@@ -45,7 +45,7 @@ module "kafka" {
   disk_prefix = "kafka"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${module.kubernetes.node_resource_group}"
-  storage_sku = "Premium_LRS"
+  storage_sku = "Standard_LRS"
   disk_size_gb = "50"
   
 }
@@ -56,7 +56,7 @@ module "es-master" {
   disk_prefix = "es-master"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${module.kubernetes.node_resource_group}"
-  storage_sku = "Premium_LRS"
+  storage_sku = "Standard_LRS"
   disk_size_gb = "2"
   
 }
@@ -67,7 +67,7 @@ module "es-data-v1" {
   disk_prefix = "es-data-v1"
   location = "${azurerm_resource_group.resource_group.location}"
   resource_group = "${module.kubernetes.node_resource_group}"
-  storage_sku = "Premium_LRS"
+  storage_sku = "Standard_LRS"
   disk_size_gb = "50"
   
 }

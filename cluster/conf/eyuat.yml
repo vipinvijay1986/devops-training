@@ -421,7 +421,7 @@ egf-master:
   images:
     - egovio/egf-master
   db_migration_image: egovio/egf-master-db
-  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
+  db-url: "jdbc:postgresql://ey-uat.postgres.database.azure.com:5432/eyuat_db"
   memory_limits: 512Mi
   heap: "-Xmx256m -Xms256m -XX:TieredStopAtLevel=1"
 
@@ -472,9 +472,9 @@ zookeeper-config:
 
 egov-config:
   sms-enabled: "true"
-  db-url: "jdbc:postgresql://pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com:5432/egov_uat_db"
-  db-host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
-  db-name: "egov_uat_db"
+  db-url: "jdbc:postgresql://ey-uat.postgres.database.azure.com:5432/eyuat_db"
+  db-host: "ey-uat.postgres.database.azure.com"
+  db-name: "eyuat_db"
   kafka-brokers: "kafka-v2-headless.kafka-cluster:9092"
   spring-datasource-tomcat-initialSize: "1"
   spring-datasource-tomcat-max-active: "5"
@@ -668,10 +668,10 @@ redis:
 
 # secrets >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 db-secret:
-  username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
-  password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
-  flyway-username: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dRMgHxrrX8zTH+pBCeR9NYg==
-  flyway-password: SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D512mOFY1jPxKt+si6OzuysXnrkLm0YsZdBaiqfuBhmzVw==
+  username: El43i6i8rQUTuXq6l+5mSutzyfDXgsmbLVMrVj7ftxCkSnbioU2jJA5HPx/MgBMuYM7waOodNQGiwx4e7B/6Gg==
+  password: O+j+YYC11mExjU8RiGxdmUuOcBl0FyIOPyi+W5bku8g=
+  flyway-username: El43i6i8rQUTuXq6l+5mSutzyfDXgsmbLVMrVj7ftxCkSnbioU2jJA5HPx/MgBMuYM7waOodNQGiwx4e7B/6Gg==
+  flyway-password: O+j+YYC11mExjU8RiGxdmUuOcBl0FyIOPyi+W5bku8g=
 
 egov-notification-sms-secret:
   username: gm6cCy6UBivuzGDwmNvsQJ+V8GG6+Ot1eRv67bSg2Qw=
@@ -690,12 +690,12 @@ pgadmin:
     - egovio/pgadmin:v0.1
 
 pgadmin-config:
-  host: "pb-micro-uat-db.c7gelbottzkp.ap-south-1.rds.amazonaws.com"
+  host: "ey-uat.postgres.database.azure.com"
   db-admin-username: "egovuat"
   db-read-username: "pbuat_readonly"
   port: "5432"
   env: "PBUAT"
-  maintenance-db-name: "egov_uat_db"
+  maintenance-db-name: "eyuat_db"
   admin-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnZxLM503WCC3VuLN6YlKRbn1VcHGXxblruwkv8iUziC5VSPFLgDEgjn+1vscsbE4MA=="
   admin-password: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D506guUFl8C9VnEoAA042DjH4iwJxlhHLAbEmr4KvdjI9w=="
   read-email: "SUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPnUlFz8Z6nCRrjOKLt7t3D51JRc/Gepwka4zii7e7dw+dSUXPxnqcJGuM4ou3u3cPndZ80NH1wrDwg6o51XnjbZjkydapMxytFn+3lkiOjq2dD9kb4xhcEgseyNPT2/zSJg=="
@@ -721,14 +721,10 @@ kafka-v2:
   default-replication-factor: "2"
   num-partitions: "3"
   storage-size: "50Gi"
-  ebs-volumes:
-    - vol-08682866d33389e9e
-    - vol-0291b0158bbd6615b
-    - vol-0f58e09ffc96d74dd
-  zones:
-    - ap-south-1a
-    - ap-south-1b  
-    - ap-south-1c
+  azure-disk:
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/kafka-0
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/kafka-1
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/kafka-2
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -765,14 +761,11 @@ zookeeper-v2:
     - confluentinc/cp-zookeeper:5.2.2
   zookeeper-servers: "zookeeper-v2-0.zookeeper-v2-headless.zookeeper-cluster:2888:3888;zookeeper-v2-1.zookeeper-v2-headless.zookeeper-cluster:2888:3888;zookeeper-v2-2.zookeeper-v2-headless.zookeeper-cluster:2888:3888"
   heap: "-Xms256M -Xmx256M"
-  ebs-volumes:
-    - vol-05c9fc63343943032
-    - vol-0ed28eb9c468cd38c
-    - vol-0ef25cffbde5f74ba
-  zones:
-    - ap-south-1a
-    - ap-south-1b
-    - ap-south-1c  
+  azure-disk:
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/zookeeper-0
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/zookeeper-1
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/zookeeper-2
+ 
 
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -801,14 +794,9 @@ es-data-v1:
   storage-size: 25Gi  
   images:
     - egovio/elasticsearch-v1:6.4.2
-  ebs-volumes:
-    - vol-0c14a097a2b2360d4
-    - vol-0383220c8f5511af7
-    - vol-0142fe0d623ee6f0d
-  zones:
-    - ap-south-1a
-    - ap-south-1b
-    - ap-south-1c      
+  azure-disk:
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/es-data-v1-0
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/es-data-v1-1   
   network-host: "_eth0:ipv4_"
 
 es-client-v1:
@@ -822,10 +810,12 @@ es-master-v1:
   images:
     - egovio/elasticsearch-v1:6.4.2
   storage-size: 2Gi  
-  ebs-volumes:
-    - vol-0e9cb1360d990e6ef
-    - vol-03a59eef2db3a50dc
-    - vol-0fc39db95d1dc4b9a
+  azure-disk:
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/es-master-0
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/es-master-1
+    - /subscriptions/7cb0887d-b3aa-4e06-8325-01671ec376e1/resourceGroups/MC_ey-uat_ey-uat_southeastasia/providers/Microsoft.Compute/disks/es-master-2
+  network-host: "_eth0:ipv4_"
+
   zones:
     - ap-south-1a
     - ap-south-1b
