@@ -1,4 +1,4 @@
-node("slave"){
+node("master"){
     checkout scm
     def deployer = load("jenkins/deployer.groovy")
 
