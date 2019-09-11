@@ -1,8 +1,8 @@
 provider "azurerm" {
   # whilst the `version` attribute is optional, we recommend pinning to a given version of the Provider
   version = "=1.28.0"
-  subscription_id  = "7cb0887d-b3aa-4e06-8325-01671ec376e1"
-  tenant_id        = "2a9c1e0b-3f10-4b58-90f2-3c7a66a102d2" 
+  subscription_id  = "41efa386-17bf-4afd-b0b0-3e3db6e194cb"
+  tenant_id      = "04445358-4583-495e-ac0a-34105448c569"
   client_id = "${var.client_id}"
   client_secret = "${var.client_secret}"
 }
@@ -35,7 +35,7 @@ module "zookeeper" {
   resource_group = "${module.kubernetes.node_resource_group}"
   storage_sku = "Standard_LRS"
   disk_size_gb = "5"
-  
+
 }
 
 module "kafka" {
@@ -47,7 +47,7 @@ module "kafka" {
   resource_group = "${module.kubernetes.node_resource_group}"
   storage_sku = "Standard_LRS"
   disk_size_gb = "50"
-  
+
 }
 module "es-master" {
   source = "../modules/storage/azure"
@@ -58,7 +58,7 @@ module "es-master" {
   resource_group = "${module.kubernetes.node_resource_group}"
   storage_sku = "Standard_LRS"
   disk_size_gb = "2"
-  
+
 }
 module "es-data-v1" {
   source = "../modules/storage/azure"
@@ -69,13 +69,13 @@ module "es-data-v1" {
   resource_group = "${module.kubernetes.node_resource_group}"
   storage_sku = "Standard_LRS"
   disk_size_gb = "50"
-  
+
 }
 
 module "postgres-db" {
   source = "../modules/db/azure"
-  server_name = "ey-uat"
-  resource_group = "${module.kubernetes.node_resource_group}"  
+  server_name = "ey-uat-db"
+  resource_group = "${module.kubernetes.node_resource_group}"
   sku_cores = "2"
   location = "${azurerm_resource_group.resource_group.location}"
   sku_tier = "Basic"
@@ -86,5 +86,5 @@ module "postgres-db" {
   ssl_enforce = "Disabled"
   db_name = "ey_uat_admin"
   environment= "${var.environment}"
-  
+
 }
