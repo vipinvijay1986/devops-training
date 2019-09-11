@@ -52,7 +52,7 @@ egov-location:
   heap: "-Xmx192m -Xms192m -XX:TieredStopAtLevel=1"
   gmaps:
     api-key: ""
-    
+
 
 egov-notification-sms:
   replicas: 1
