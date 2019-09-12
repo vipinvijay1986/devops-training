@@ -138,14 +138,14 @@ egov-persister:
   replicas: 2
   images:
     - egovio/egov-persister
-  persist-yml-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pg-service-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pgr-v3-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/property-services-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-calculator-v2-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-drafts-persister.yml,https://github.com/egovernments/punjab-rainmaker-customization/raw/UAT/configs/egov-persister/tradelicense-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/indexer-job-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-calculation-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-billing-slab-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/uploader-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/hrms-employee-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/apportion-persister.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-user-event-persister.yml"
+  persist-yml-path: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/pg-service-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/pgr-v3-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/property-services-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-calculator-v2-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/pt-drafts-persister.yml,https://github.com/vipinvijay1986/punjab-rainmaker-customization/raw/UAT/configs/egov-persister/tradelicense-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/indexer-job-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-calculation-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/tl-billing-slab-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/uploader-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-workflow-v2-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/hrms-employee-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/apportion-persister.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-persister/egov-user-event-persister.yml"
   java-args: "-Dspring.profiles.active=production"
 
 egov-searcher:
   replicas: 1
   images:
     - egovio/egov-searcher
-  search-yaml-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pgr-v2-searcher.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-customsearch-punjab.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-gissearch.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-searcher/weekly-impact-emailer-searcher.yml"
+  search-yaml-path: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pgr-v2-searcher.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-customsearch-punjab.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-searcher/rainmaker-pt-gissearch.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-searcher/weekly-impact-emailer-searcher.yml"
   java-args: "-Dspring.profiles.active=production"
 
 
@@ -155,8 +155,8 @@ egov-data-uploader:
     - egovio/egov-data-uploader
   heap: "-Xmx512m -Xms512m -XX:TieredStopAtLevel=1"
   upload-assessment: "YES"
-  upload-json-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/property-upload.json,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/localization-upload.json,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-uploader/CollectionReceiptWorkflow.json"
-  template-download-prefix: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/upload-templates"
+  upload-json-path: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-uploader/property-upload.json,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-uploader/localization-upload.json,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-uploader/CollectionReceiptWorkflow.json"
+  template-download-prefix: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/upload-templates"
   internal-file-folder-path: "/tmp"
   java-args: "-Dspring.profiles.active=production"
 
@@ -251,8 +251,8 @@ zuul:
   images:
     - egovio/zuul
   custom-filter-property: "true"
-  prehook-config: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-zuul/pre-hook.json"
-  posthook-config: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-zuul/post-hook.json"
+  prehook-config: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-zuul/pre-hook.json"
+  posthook-config: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-zuul/post-hook.json"
   heap: "-Xmx704m -Xms512m -XX:TieredStopAtLevel=1"
   server-tomcat-max-threads: "350"
   server-tomcat-max-connections: "1500"
@@ -303,7 +303,7 @@ report:
   replicas: 1
   images:
     - egovio/report
-  report-locationsfile-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/reports/report.config"
+  report-locationsfile-path: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/reports/report.config"
   tracing-enabled: "true"
   java-args: "-Dspring.profiles.active=production"
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -487,7 +487,7 @@ egov-config:
   spring-jpa-show-sql: "true"
   serializers-timezone-in-ist: "true"
   mobile-validation-workaround: "true"
-  egov-indexer-yaml-repo-path: "https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-telemetry-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pgr-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pt-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/billingservices-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/tradelicense-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/collection-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-uploader-indexer.yml,https://raw.githubusercontent.com/egovernments/punjab-rainmaker-customization/UAT/configs/egov-indexer/finance-rolloutadoption-indexer.yml"
+  egov-indexer-yaml-repo-path: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-telemetry-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pgr-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/rainmaker-pt-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/billingservices-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/tradelicense-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/collection-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/egov-uploader-indexer.yml,https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-indexer/finance-rolloutadoption-indexer.yml"
   logging-level-jdbc: "null"
   domain: "mseva-uat.lgpunjab.gov.in"
   tracer-errors-provideexceptionindetails: "true"
