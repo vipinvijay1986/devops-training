@@ -40,27 +40,25 @@ spec:
 
       - name: "hr-employee-v2-db-migration"
         image: "{{conf["hr-employee-v2"]["db_migration_image"]}}"
-        env: 
+        env:
         - name: "DB_URL"
-          valueFrom: 
-            configMapKeyRef: 
-              name: egov-config
-              key: db-url
+          valueFrom:
+          value: "{{ conf['hr-employee-v2']['db-url']}}"
         - name: "SCHEMA_TABLE"
           value: "hr_employee_v2_schema"
         - name: "FLYWAY_USER"
-          valueFrom: 
-            secretKeyRef: 
+          valueFrom:
+            secretKeyRef:
               name: db
               key: flyway-username
         - name: "FLYWAY_PASSWORD"
           valueFrom:
-            secretKeyRef: 
+            secretKeyRef:
               name: db
               key: flyway-password
         - name: "FLYWAY_LOCATIONS"
-          valueFrom: 
-            configMapKeyRef: 
+          valueFrom:
+            configMapKeyRef:
               name: egov-config
               key: flyway-locations
         volumeMounts:

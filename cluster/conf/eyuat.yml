@@ -416,6 +416,15 @@ finance-collections-voucher-consumer:
 
 # financials >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+hr-employee-v2:
+  replicas: 1
+  images:
+    - egovio/hr-employee-v2
+  db_migration_image: egovio/hr-employee-v2-db
+  db-url: "jdbc:postgresql://ey-uat-db.postgres.database.azure.com:5432/eyuat_db?currentSchema=hr_employee_v2_schema"
+
+
+
 egf-master:
   replicas: 2
   images:
