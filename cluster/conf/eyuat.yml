@@ -113,7 +113,7 @@ egov-mdms-service:
   images:
     - egovio/egov-mdms-service
   mdms-path: "/opt/mdms/data"
-  mdms-git-url: "https://codeload.github.com/vipinvijay1986/punjab-mdms-data/zip/"
+  mdms-git-url: "https://codeload.github.com/vipinvijay1986/punjab-mdms-data/data/pb"
   mdms-folder: "punjab-mdms-data"
   branch: "UAT"
   masters-config-url: "https://raw.githubusercontent.com/vipinvijay1986/punjab-rainmaker-customization/UAT/configs/egov-mdms-service/mdms-masters-config.json"
